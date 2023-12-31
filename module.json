@@ -1,0 +1,36 @@
+{
+  "id": "night-vision-wfpr4e",
+  "title": "Night Vision (WFPR4e)",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "wfrp4e",
+        "type": "system",
+        "compatibility": {}
+      }
+    ],
+    "recommends": [
+      {
+        "id": "wfrp4e-core",
+        "type": "module",
+        "compatibility": {}
+      }
+    ]
+  },
+  "description": "Partial automation of the Night Vision talent",
+  "authors": [
+    {
+      "name": "thefirst",
+      "discord": "thefirst5",
+      "flags": {}
+    }
+  ],
+  "scripts": [
+    "scripts/night_vision_script.js"
+  ]
+}
