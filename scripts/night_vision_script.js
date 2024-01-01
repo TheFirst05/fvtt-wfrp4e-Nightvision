@@ -49,7 +49,7 @@ LightSource.prototype.getRadius = function (dim, bright) {
 
 
 Hooks.on("controlToken", () => {
-	// Refresh lighting to (un)apply low-light vision parameters to them
+	// Refresh lighting to (un)apply Night Vision parameters to them
 
 	canvas.perception.update(
 		{
