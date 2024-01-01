@@ -42,7 +42,7 @@ LightSource.prototype.getRadius = function (dim, bright) {
 	const distancePix = game.scenes.viewed.dimensions.distancePixels; //finds the pixels per unit of measurement (assuming it's yards)
 
 	result.dim += multiplier.dim * 20 * distancePix;
-	result.bright += multiplier.bright * 20 * distancePix;
+	// result.bright += multiplier.bright * 20 * distancePix; //currently disabled increasing bright lights.
 	return result;
 
 };
