@@ -13,13 +13,6 @@
         "type": "system",
         "compatibility": {}
       }
-    ],
-    "recommends": [
-      {
-        "id": "wfrp4e-core",
-        "type": "module",
-        "compatibility": {}
-      }
     ]
   },
   "description": "Partial automation of the Night Vision talent",
