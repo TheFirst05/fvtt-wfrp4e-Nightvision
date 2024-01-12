@@ -62,13 +62,26 @@ LightSource.prototype.getRadius = function (dim, bright) {
 	// find the pixels per grid unit (assume it's yards)
 	const distancePix = game.scenes.viewed.dimensions.distancePixels;
 
-	result.dim += multiplier.dim * 20 * distancePix;
-	// currently disabled the functionality to increase bright radius.
-	// result.bright += multiplier.bright * 20 * distancePix; 
-	
+	let nightVisionDistance = game.settings.get("wfrp4e-night-vision", "nightVisionDistance");
+
+	result.dim += multiplier.dim * nightVisionDistance * distancePix;
+	if (game.settings.get("wfrp4e-night-vision", "nightVisionBright")) {
+		result.bright += multiplier.bright * nightVisionDistance / 2 * distancePix
+	};
+
 	return result;
 };
 
+Hooks.on("controlToken", () => {
+
+	// Refresh lighting to (un)apply Night Vision parameters to them
+	canvas.perception.update(
+		{
+			initializeLighting: true,
+		},
+		true
+	);
+});
 
 Hooks.on('init', () => {
 
@@ -87,16 +100,38 @@ Hooks.on('init', () => {
 			);
 		},
 	});
-});
 
-
-Hooks.on("controlToken", () => {
-
-	// Refresh lighting to (un)apply Night Vision parameters to them
-	canvas.perception.update(
-		{
-			initializeLighting: true,
+	game.settings.register("wfrp4e-night-vision", "nightVisionDistance", {
+		name: "Night Vision range",
+		hint: "Modifies the distance granted per rank in Night Vision. Default is 20",
+		scope: "world",
+		config: true,
+		default: 20,
+		type: Number,
+		step: "any",
+		onChange: () => {
+			// Refresh canvas sight
+			canvas.perception.update(
+				{ initializeLighting: true, initializeVision: true, refreshLighting: true, refreshVision: true },
+				true
+			);
 		},
-		true
-	);
+	});
+
+	game.settings.register("wfrp4e-night-vision", "nightVisionBright", {
+		name: "Night Vision affects bright illumination",
+		hint: "With this setting on, Night Vision also increases the radius of bright illumination by half the value of dim illumination",
+		scope: "world",
+		config: true,
+		default: false,
+		type: Boolean,
+		onChange: () => {
+			// Refresh canvas sight
+			canvas.perception.update(
+				{ initializeLighting: true, initializeVision: true, refreshLighting: true, refreshVision: true },
+				true
+			);
+		},
+	});
 });
+
