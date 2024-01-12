@@ -119,7 +119,7 @@ Hooks.on('init', () => {
 	});
 
 	game.settings.register("wfrp4e-night-vision", "nightVisionBright", {
-		name: "Night Vision affects Bright Lights",
+		name: "Night Vision affects bright illumination",
 		hint: "With this setting on, Night Vision also increases the radius of bright illumination by half the value of dim illumination",
 		scope: "world",
 		config: true,
